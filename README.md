@@ -4,3 +4,7 @@
 # Marvel-Comics-App
 A simple Android app that provides easy access to a list of available comics hosted by Marvel, and detailed information about each one of them.
 
+# Getting Started
+
+This sample uses the Gradle build system. To build this project, use the "gradlew build" command or use "Import Project" in Android Studio.
+
