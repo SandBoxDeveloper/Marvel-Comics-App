@@ -29,6 +29,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
 
+    // HTTP client 
+    compile 'com.squareup.okhttp3:okhttp:3.3.1'
+
     // APIs that allow you to quickly build and run instrumented test code
     androidTestCompile 'com.android.support:support-annotations:23.4.0'
     androidTestCompile 'com.android.support.test:runner:0.4.1'
