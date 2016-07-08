@@ -29,7 +29,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
 
-    // HTTP client 
+    // HTTP client
     compile 'com.squareup.okhttp3:okhttp:3.3.1'
 
     // APIs that allow you to quickly build and run instrumented test code
@@ -42,4 +42,8 @@ dependencies {
 
     // JUnit 4 framework
     testCompile 'junit:junit:4.12'
+
+    // Mockito framework
+    testCompile 'org.mockito:mockito-core:2.0.81-beta'
+
 }
