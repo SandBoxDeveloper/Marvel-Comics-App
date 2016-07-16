@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">"Marvel Comics "</string>
+    <string name="action_sort_by">Sort by</string>
+    <string name="action_sort_by_title">Title</string>
+    <string name="action_sort_by_issueNumber">Issue Number</string>
+
+    <!-- SyncAdapter related -->
+    <string name="content_authority">com.hulldiscover.zeus.marvelcomics</string>
+
 </resources>
