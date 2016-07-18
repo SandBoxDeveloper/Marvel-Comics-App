@@ -1,8 +1,17 @@
 <resources>
     <string name="app_name">"Marvel Comics "</string>
-    <string name="action_sort_by">Sort by</string>
-    <string name="action_sort_by_title">Title</string>
+    <string name="title_activity_detail">Comic Details</string>
+    <string name="action_order_by">Order by</string>
+    <string name="action_order_by_title">Title</string>
+    <string name="action_order_by_onsaleDate">On Sale</string>
     <string name="action_sort_by_issueNumber">Issue Number</string>
+    <string name="public_api_key">54306733de0f5cd1418aa05a85fa062a</string>
+
+
+    <string name="release_date">"Released: "</string>
+    <string name="pages">"Pages: "</string>
+    <string name="author">"By: "</string>
+    <string name="description">"Description: "</string>
 
     <!-- SyncAdapter related -->
     <string name="content_authority">com.hulldiscover.zeus.marvelcomics</string>
