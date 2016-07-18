@@ -23,9 +23,9 @@ public class DetailActivity extends AppCompatActivity {
             DetailActivityFragment fragment = new DetailActivityFragment();
             fragment.setArguments(arguments);
 
-            //getSupportFragmentManager().beginTransaction()
-                    //.add(R.id.movie_detail_container, fragment)
-                    //.commit();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.movie_detail_container, fragment)
+                    .commit();
         }
     }
 }

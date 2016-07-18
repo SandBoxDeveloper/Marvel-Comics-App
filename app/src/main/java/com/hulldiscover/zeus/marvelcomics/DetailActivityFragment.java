@@ -2,6 +2,7 @@ package com.hulldiscover.zeus.marvelcomics;
 
 import android.os.Bundle;
 import android.support.v7.widget.ShareActionProvider;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.hulldiscover.zeus.marvelcomics.Model.Comic;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -27,9 +32,8 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment {
     private ImageView mImageView;
 
     private TextView mTitleView;
-    private TextView mOverviewView;
+    private TextView mDescription;
     private TextView mDateView;
-    private TextView mVoteAverageView;
 
     private ScrollView mDetailLayout;
 
@@ -73,11 +77,32 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment {
         mImageView = (ImageView) rootView.findViewById(R.id.detail_image);
 
         mTitleView = (TextView) rootView.findViewById(R.id.detail_title);
-        mOverviewView = (TextView) rootView.findViewById(R.id.detail_overview);
+        mDescription = (TextView) rootView.findViewById(R.id.detail_description);
         mDateView = (TextView) rootView.findViewById(R.id.detail_date);
-        mVoteAverageView = (TextView) rootView.findViewById(R.id.detail_vote_average);
 
 
+        if (mComic != null) {
+
+            String image_url = mComic.getImage() + "/portrait_xlarge.jpg";
+
+            Glide.with(this).load(image_url).into(mImageView);
+
+            mTitleView.setText(mComic.getTitle());
+            mDescription.setText(mComic.getDescription());
+
+            String movie_date = mComic.getDate();
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                String date = DateUtils.formatDateTime(getActivity(),
+                        formatter.parse(movie_date).getTime(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR);
+                mDateView.setText(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+        }
 
 
         return rootView;
