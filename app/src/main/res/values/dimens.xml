@@ -45,6 +45,12 @@
     <!-- Toolbar -->
     <dimen name="toolbar_elevation">8dp</dimen>
 
+    <!-- Spinner -->
+    <dimen name="spinner_left_padding">0dp</dimen>
+    <dimen name="spinner_drawable_padding">16dp</dimen>
+    <dimen name="open_spinner_width">200dp</dimen>
+    <dimen name="open_dropdown_item_height">48dp</dimen>
+
     <dimen name="grid_item_comic_width">100dp</dimen>
     <dimen name="grid_item_comic_spacing">5dp</dimen>
     <dimen name="grid_item_comic_height">170dp</dimen>

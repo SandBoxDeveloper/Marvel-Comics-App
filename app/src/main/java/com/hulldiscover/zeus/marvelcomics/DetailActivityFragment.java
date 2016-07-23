@@ -30,15 +30,15 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment {
 
     private Comic mComic;
 
-    private ImageView mImageView;
+    private ImageView mImageViewCover;
     private ImageView mImageViewPoster;
 
-    private TextView mTitleView;
+    private TextView mComicTitle;
     private TextView mDescription;
-    private TextView mDateView;
+    private TextView mReleaseDate;
     private TextView mPageCount;
     private TextView mPrice;
-    private TextView mAuthors;
+    private TextView mCreators;
 
     private CardView mReviewsCardview;
 
@@ -79,40 +79,49 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment {
             mDetailLayout.setVisibility(View.INVISIBLE);
         }
 
-        mImageView = (ImageView) rootView.findViewById(R.id.movie_cover);
-        mImageViewPoster = (ImageView) rootView.findViewById(R.id.movie_poster);
-
-        mTitleView = (TextView) rootView.findViewById(R.id.comic_title);
+        mImageViewPoster = (ImageView) rootView.findViewById(R.id.img_comic_poster);
+        mImageViewCover = (ImageView) rootView.findViewById(R.id.comic_thumbnail);
+        mComicTitle = (TextView) rootView.findViewById(R.id.comic_title);
         mDescription = (TextView) rootView.findViewById(R.id.comic_description);
-        mDateView = (TextView) rootView.findViewById(R.id.comic_release_date);
-        mPageCount = (TextView) rootView.findViewById(R.id.movie_average_rating);
+        mReleaseDate = (TextView) rootView.findViewById(R.id.comic_release_date);
+        mPageCount = (TextView) rootView.findViewById(R.id.comic_no_pages);
         mPrice = (TextView) rootView.findViewById(R.id.comic_price);
-        mAuthors = (TextView) rootView.findViewById(R.id.comic_authors);
+        mCreators = (TextView) rootView.findViewById(R.id.comic_creators);
 
         if (mComic != null) {
 
+            // comic image
             String image_url_cover = mComic.getImage_cover() + "/portrait_xlarge.jpg";
             String image_url_poster = mComic.getImage_poster() + "/portrait_xlarge.jpg";
+            Glide.with(this).load(image_url_cover).into(mImageViewPoster);
+            Glide.with(this).load(image_url_cover).into(mImageViewCover);
 
-            Glide.with(this).load(image_url_cover).into(mImageView);
-            Glide.with(this).load(image_url_poster).into(mImageViewPoster);
+            // title
+            mComicTitle.setText(mComic.getTitle());
 
-            mTitleView.setText(mComic.getTitle());
-            mDescription.setText("Description: \n\n" +mComic.getDescription());
-            mPageCount.setText("Pages: " +mComic.getPage_count());
-            mPrice.setText("Price: " +mComic.getPrice());
-            mAuthors.setText("Authors: " +mComic.getAuthor());
-
-            String movie_date = mComic.getDate();
-
+            // date
+            String release_date = mComic.getDate();
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 String date = DateUtils.formatDateTime(getActivity(),
-                        formatter.parse(movie_date).getTime(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR);
-                mDateView.setText(date);
+                        formatter.parse(release_date).getTime(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR);
+                mReleaseDate.setText(getString(R.string.release_date) + date);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+
+            // pages
+            mPageCount.setText(getString(R.string.pages) + mComic.getPage_count());
+
+            // price
+            mPrice.setText(getString(R.string.price) + mComic.getPrice());
+
+            // creators
+            mCreators.setText("Authors: " +mComic.getAuthor());
+
+            // description
+            mDescription.setText(getString(R.string.description) + "\n\n" +mComic.getDescription());
+
         }
         return rootView;
     }

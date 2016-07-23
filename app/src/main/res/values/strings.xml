@@ -26,7 +26,8 @@
     <string name="about_text">\nLicensed under the Apache License v2.\n \t \t \t Source available on <a href="https://github.com/SandBoxDeveloper/Marvel-Comics-App">GitHub</a>.\n</string>
 
 
-
+    <!-- Spinner -->
+    <string name="spinner_heading">Order By</string>
 
     <!-- Common -->
     <string name="view_empty_message">No matching items</string>
@@ -34,8 +35,10 @@
 
     <string name="release_date">"Released: "</string>
     <string name="pages">"Pages: "</string>
+    <string name="price">"Price: £"</string>
     <string name="author">"By: "</string>
     <string name="description">"Description: "</string>
+
 
     <!-- SyncAdapter related -->
     <string name="content_authority">com.hulldiscover.zeus.marvelcomics</string>
