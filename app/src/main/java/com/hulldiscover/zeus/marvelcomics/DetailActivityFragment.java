@@ -26,7 +26,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment {
 
     public static final String TAG = DetailActivityFragment.class.getSimpleName();
 
-    public static final String DETAIL_MOVIE = "DETAIL_MOVIE";
+    public static final String DETAIL_COMIC = "DETAIL_COMIC";
 
     private Comic mComic;
 
@@ -41,9 +41,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment {
     private TextView mAuthors;
 
     private CardView mReviewsCardview;
-    private CardView mTrailersCardview;
 
-    //private ScrollView mDetailLayout;
     private ObservableScrollView mDetailLayout;
 
     private Toast mToast;
@@ -69,15 +67,10 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment {
 
         Bundle arguments = getArguments();
         if (arguments != null) {
-            mComic = arguments.getParcelable(DetailActivityFragment.DETAIL_MOVIE);
+            mComic = arguments.getParcelable(DetailActivityFragment.DETAIL_COMIC);
         }
 
-        //View rootView = inflater.inflate(R.layout.activity_detail, container, false);
-        //View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-        View rootView = inflater.inflate(R.layout.fragment_movie, container, false);
-        //View rootView = inflater.inflate(R.layout.fragment_movies, container, false);
-
-        //mDetailLayout = (ScrollView) rootView.findViewById(R.id.detail_layout);
+        View rootView = inflater.inflate(R.layout.fragment_comic, container, false);
         mDetailLayout = (ObservableScrollView) rootView.findViewById(R.id.movie_scroll_view);
 
         if (mComic != null) {
@@ -85,12 +78,6 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment {
         } else {
             mDetailLayout.setVisibility(View.INVISIBLE);
         }
-
-        /*mImageView = (ImageView) rootView.findViewById(R.id.detail_image);
-
-        mTitleView = (TextView) rootView.findViewById(R.id.detail_title);
-        mDescription = (TextView) rootView.findViewById(R.id.detail_description);
-        mDateView = (TextView) rootView.findViewById(R.id.detail_date);*/
 
         mImageView = (ImageView) rootView.findViewById(R.id.movie_cover);
         mImageViewPoster = (ImageView) rootView.findViewById(R.id.movie_poster);
@@ -101,7 +88,6 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment {
         mPageCount = (TextView) rootView.findViewById(R.id.movie_average_rating);
         mPrice = (TextView) rootView.findViewById(R.id.comic_price);
         mAuthors = (TextView) rootView.findViewById(R.id.comic_authors);
-
 
         if (mComic != null) {
 
@@ -127,11 +113,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
-
         }
-
-
         return rootView;
     }
 

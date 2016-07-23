@@ -11,7 +11,7 @@ import com.hulldiscover.zeus.marvelcomics.UI.BrowseComicsActivityFragment;
 
 public class BrowseComicsActivity extends AppCompatActivity implements BrowseComicsActivityFragment.Callback {
 
-    private static final String MOVIE_DETAILS_FRAGMENT_TAG = "fragment_movie_details";
+    private static final String COMIC_DETAILS_FRAGMENT_TAG = "fragment_comic_details";
     private boolean mTwoPane;
 
     /**
@@ -23,11 +23,11 @@ public class BrowseComicsActivity extends AppCompatActivity implements BrowseCom
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_comics);
 
-        if (findViewById(R.id.movie_details_container) != null) {
+        if (findViewById(R.id.comic_details_container) != null) {
             mTwoPane = true;
             if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.movie_details_container, new DetailActivityFragment(),
+                        .replace(R.id.comic_details_container, new DetailActivityFragment(),
                                 DetailActivityFragment.TAG)
                         .commit();
             }
@@ -40,7 +40,7 @@ public class BrowseComicsActivity extends AppCompatActivity implements BrowseCom
     public void onItemSelected(Comic movie) {
         if (mTwoPane) {
             Bundle arguments = new Bundle();
-            arguments.putParcelable(DetailActivityFragment.DETAIL_MOVIE, movie);
+            arguments.putParcelable(DetailActivityFragment.DETAIL_COMIC, movie);
 
             DetailActivityFragment fragment = new DetailActivityFragment();
             fragment.setArguments(arguments);
@@ -49,12 +49,11 @@ public class BrowseComicsActivity extends AppCompatActivity implements BrowseCom
             // movie_details_container
             getSupportFragmentManager().beginTransaction()
                     //.replace(R.id.fragment_movies, fragment, DetailActivityFragment.TAG)
-                    .replace(R.id.movie_details_container, fragment, MOVIE_DETAILS_FRAGMENT_TAG)
+                    .replace(R.id.comic_details_container, fragment, COMIC_DETAILS_FRAGMENT_TAG)
                     .commit();
         } else {
-            //TODO: DetailActivity
             Intent intent = new Intent(this, DetailActivity.class)
-                    .putExtra(DetailActivityFragment.DETAIL_MOVIE, movie);
+                    .putExtra(DetailActivityFragment.DETAIL_COMIC, movie);
             startActivity(intent);
         }
     }

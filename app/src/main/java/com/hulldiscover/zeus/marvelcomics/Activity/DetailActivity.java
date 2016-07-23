@@ -11,7 +11,7 @@ import com.hulldiscover.zeus.marvelcomics.R;
  */
 public class DetailActivity extends AppCompatActivity {
 
-    private static final String MOVIE_FRAGMENT_TAG = "fragment_movie";
+    private static final String MOVIE_FRAGMENT_TAG = "fragment_comic";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +21,14 @@ public class DetailActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
-            arguments.putParcelable(DetailActivityFragment.DETAIL_MOVIE,
-                    getIntent().getParcelableExtra(DetailActivityFragment.DETAIL_MOVIE));
+            arguments.putParcelable(DetailActivityFragment.DETAIL_COMIC,
+                    getIntent().getParcelableExtra(DetailActivityFragment.DETAIL_COMIC));
 
             DetailActivityFragment fragment = new DetailActivityFragment();
             fragment.setArguments(arguments);
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.movie_details_container, fragment, MOVIE_FRAGMENT_TAG)
+                    .add(R.id.comic_details_container, fragment, MOVIE_FRAGMENT_TAG)
                     .commit();
 
 
