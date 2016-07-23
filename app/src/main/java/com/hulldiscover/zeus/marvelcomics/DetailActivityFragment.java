@@ -117,6 +117,13 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment {
             mPrice.setText(getString(R.string.price) + mComic.getPrice());
 
             // creators
+            /*String key = mComic.getAuthor().toString();
+            String value = "";
+            for (Map.Entry<String,String> entry : mComic.getAuthor().entrySet()) {
+                key = entry.getKey();
+                value = entry.getValue();
+
+            }*/
             mCreators.setText("Authors: " +mComic.getAuthor());
 
             // description
