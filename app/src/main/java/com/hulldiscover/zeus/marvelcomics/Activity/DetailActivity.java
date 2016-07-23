@@ -10,10 +10,14 @@ import com.hulldiscover.zeus.marvelcomics.R;
  * Created by Zeus on 16/07/16.
  */
 public class DetailActivity extends AppCompatActivity {
+
+    private static final String MOVIE_FRAGMENT_TAG = "fragment_movie";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        //setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_movie_details);
 
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
@@ -24,8 +28,10 @@ public class DetailActivity extends AppCompatActivity {
             fragment.setArguments(arguments);
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.movie_detail_container, fragment)
+                    .add(R.id.movie_details_container, fragment, MOVIE_FRAGMENT_TAG)
                     .commit();
+
+
         }
     }
 }

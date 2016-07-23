@@ -3,4 +3,22 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="white">#FFFFFF</color>
+
+
+    <color name="body_text_1">#de000000</color>
+    <color name="body_text_2">#8a000000</color>
+    <color name="body_text_3">#60000000</color>
+    <color name="body_text_white">#FFFFFFFF</color>
+
+    <color name="body_text_1_inverse">#deffffff</color>
+    <color name="body_text_2_inverse">#8affffff</color>
+
+    <color name="list_dropdown_divider_color">#92a3a3a3</color>
+    <color name="list_dropdown_foreground_normal">#ff333333</color>
+
+    <color name="theme_primary">#ffc62828</color>
+
+    <color name="comic_poster_placeholder">#ffd32f2f</color>
+
 </resources>

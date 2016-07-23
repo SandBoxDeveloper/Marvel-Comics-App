@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -6,6 +6,85 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Browse Comics -->
+    <style name="MovieItem" parent="CardView">
+        <item name="android:layout_margin">@dimen/item_spacing_half</item>
+        <item name="android:clickable">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <!--<item name="cardPreventCornerOverlap">false</item>-->
+        <item name="cardElevation">4dp</item>
+    </style>
+
+    <style name="MovieItemText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <!-- Movie details -->
+    <style name="MovieDetailSectionHeader">
+        <item name="android:textSize">@dimen/text_size_xlarge</item>
+        <item name="android:textColor">@color/theme_primary</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="MovieDetailTextBody">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/body_text_1</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
+        <item name="android:textAlignment" tools:ignore="NewApi">textStart</item>
+    </style>
+
+    <style name="MovieDetailPlayImage">
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="MovieDetailAnchor">
+        <item name="android:layout_alignTop">@id/movie_cover_container</item>
+        <item name="android:layout_alignBottom">@id/movie_cover_container</item>
+    </style>
+
+    <!-- Divider -->
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
+
+    <!-- Toolbar -->
+
+    <style name="Toolbar">
+        <item name="android:background">?colorPrimary</item>
+    </style>
+
+    <style name="ActionBar.ThemeOverlay" parent="">
+        <item name="android:textColorPrimary">#fff</item>
+        <item name="colorControlNormal">#fff</item>
+        <item name="colorControlHighlight">#3fff</item>
+    </style>
+
+    <style name="ActionBar.PopupThemeOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ActionBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/body_text_white</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="ActionBar.Subtitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
+        <item name="android:textColor">@color/body_text_white</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+
+    <!-- Common -->
+    <style name="CollectionView">
+        <item name="android:padding">@dimen/item_spacing_half</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:scrollbars">none</item>
     </style>
 
 </resources>

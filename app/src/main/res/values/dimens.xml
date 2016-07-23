@@ -3,9 +3,57 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- Keylines -->
+    <dimen name="article_keylines">72dp</dimen>
+    <dimen name="md_keylines">16dp</dimen>
+
+    <dimen name="keyline_1">16dp</dimen>
+    <dimen name="keyline_1_minus_8dp">8dp</dimen>
+    <dimen name="keyline_2">72dp</dimen>
+    <dimen name="keyline_2_minus_16dp">56dp</dimen>
+
+    <!-- Comics -->
+    <dimen name="grid_item_movie_width">100dp</dimen>
+    <dimen name="grid_item_movie_spacing">5dp</dimen>
+    <dimen name="grid_item_movie_height">170dp</dimen>
+    <item name="comic_item_image_aspect_ratio" format="float" type="dimen">.675</item>
+
+
+
+    <dimen name="app_bar_height">256dp</dimen>
+    <dimen name="article_titles">20sp</dimen>
+    <dimen name="location_details_margin">20dp</dimen>
+
+    <!-- Texts -->
+    <dimen name="text_size_xsmall">11sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_xlarge">20sp</dimen>
+
+    <!-- Movie Details -->
+    <item name="movie_details_cover_aspect_ratio" format="float" type="dimen">1.77</item>
+    <dimen name="movie_details_poster_width">150dp</dimen>
+    <dimen name="movie_details_poster_top_margin">-16dp</dimen>
+    <dimen name="movie_details_poster_left_margin">16dp</dimen>
+
+    <dimen name="movie_details_responsive_width">@dimen/match_parent</dimen>
+    <dimen name="movie_details_anchor_height">@dimen/match_parent</dimen>
+    <dimen name="movie_details_margin">0dp</dimen>
+    <dimen name="movie_details_content_margin_bottom">0dp</dimen>
+
+    <!-- Toolbar -->
+    <dimen name="toolbar_elevation">8dp</dimen>
+
     <dimen name="grid_item_comic_width">100dp</dimen>
     <dimen name="grid_item_comic_spacing">5dp</dimen>
     <dimen name="grid_item_comic_height">170dp</dimen>
     <dimen name="text_size">16sp</dimen>
+
+    <!-- Common -->
+    <item name="match_parent" type="dimen">-1</item>
+    <item name="wrap_content" type="dimen">-2</item>
+    <dimen name="item_spacing_half">2dp</dimen>
+    <dimen name="item_spacing_full">4dp</dimen>
 
 </resources>
