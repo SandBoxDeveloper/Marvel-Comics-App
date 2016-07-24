@@ -24,6 +24,7 @@ public class TestUtilities extends AndroidTestCase {
 
         static final String TEST_TITLE = "Deadpool (1997) #-1";
         static final String TEST_DATE = "1997-07-10T00:00:00-0400";  // July 10th, 1997
+        static final String TEST_IMAGE = "http://i.annihil.us/u/prod/marvel/i/mg/6/c0/56439bc6b832f.jpg";
 
         static void validateCursor(String error, Cursor valueCursor, ContentValues expectedValues) {
             assertTrue("Empty cursor returned. " + error, valueCursor.moveToFirst());
@@ -58,7 +59,7 @@ public class TestUtilities extends AndroidTestCase {
                     "The Merc with a Mouth faces off against the clones of Marvel's most distinguished deceased.");
             weatherValues.put(ComicContract.ComicEntry.COLUMN_PAGE_COUNT, 44);
             weatherValues.put(ComicContract.ComicEntry.COLUMN_PRICE, 3.99);
-            weatherValues.put(ComicContract.ComicEntry.COLUMN_IMAGE, "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg");
+            weatherValues.put(ComicContract.ComicEntry.COLUMN_IMAGE, TEST_IMAGE);
 
             return weatherValues;
         }
@@ -70,11 +71,15 @@ public class TestUtilities extends AndroidTestCase {
         static ContentValues createNewComicValues() {
             // Create a new map of values, where column names are the keys
             ContentValues testValues = new ContentValues();
+            testValues.put(ComicContract.ComicEntry.COLUMN_COMIC_ID, 8461);
             testValues.put(ComicContract.ComicEntry.COLUMN_TITLE, TEST_TITLE);
+            testValues.put(ComicContract.ComicEntry.COLUMN_AUTHOR, "Mahmud Asrar");
+            testValues.put(ComicContract.ComicEntry.COLUMN_DATE, TEST_DATE);
             testValues.put(ComicContract.ComicEntry.COLUMN_DESCRIPTION,
                     "The Merc with a Mouth faces off against the clones of Marvel's most distinguished deceased.");
-            testValues.put(ComicContract.ComicEntry.COLUMN_PRICE, 2.99);
-            testValues.put(ComicContract.ComicEntry.COLUMN_DATE, TEST_DATE);
+            testValues.put(ComicContract.ComicEntry.COLUMN_PAGE_COUNT, 44);
+            testValues.put(ComicContract.ComicEntry.COLUMN_PRICE, 3.99);
+            testValues.put(ComicContract.ComicEntry.COLUMN_IMAGE, TEST_IMAGE);
 
             return testValues;
         }
