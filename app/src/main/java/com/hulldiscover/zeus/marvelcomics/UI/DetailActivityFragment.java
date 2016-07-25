@@ -1,4 +1,4 @@
-package com.hulldiscover.zeus.marvelcomics;
+package com.hulldiscover.zeus.marvelcomics.UI;
 
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.hulldiscover.zeus.marvelcomics.Model.Comic;
+import com.hulldiscover.zeus.marvelcomics.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

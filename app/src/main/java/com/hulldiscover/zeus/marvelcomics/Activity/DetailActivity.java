@@ -3,7 +3,7 @@ package com.hulldiscover.zeus.marvelcomics.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.hulldiscover.zeus.marvelcomics.DetailActivityFragment;
+import com.hulldiscover.zeus.marvelcomics.UI.DetailActivityFragment;
 import com.hulldiscover.zeus.marvelcomics.R;
 
 /**

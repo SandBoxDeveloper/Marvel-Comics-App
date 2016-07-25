@@ -2,30 +2,21 @@ package com.hulldiscover.zeus.marvelcomics.Sync;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.SyncRequest;
 import android.content.SyncResult;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.text.format.Time;
 import android.util.Log;
 
-import com.hulldiscover.zeus.marvelcomics.Activity.BrowseComicsActivity;
 import com.hulldiscover.zeus.marvelcomics.BuildConfig;
 import com.hulldiscover.zeus.marvelcomics.Data.ComicContract;
 import com.hulldiscover.zeus.marvelcomics.R;
@@ -149,7 +140,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 return;
             }
             comicJsonStr = buffer.toString();
-            getWeatherDataFromJson(comicJsonStr);
+            getComicDataFromJson(comicJsonStr);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
             // If the code didn't successfully get the comic data, there's no point in attempting
@@ -179,7 +170,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
      * Fortunately parsing is easy:  constructor takes the JSON string and converts it
      * into an Object hierarchy for us.
      */
-    private void getWeatherDataFromJson(String forecastJsonStr)
+    private void getComicDataFromJson(String forecastJsonStr)
             throws JSONException {
 
         // Now we have a String representing the complete comic in JSON Format.
@@ -223,8 +214,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         final String RESULT = "results";
         final String DATA = "data";
 
-
-
         try {
             JSONObject comicJson = new JSONObject(forecastJsonStr);
             // get data JSONObject from API
@@ -234,6 +223,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
 
             comic_id = comicJson.getInt(COMIC_ID);
+            Log.d(LOG_TAG, Integer.toString(comic_id));
             title = comicJson.getString(TITLE);
             description = comicJson.getString(DESCRIPTION);
             page_count = comicJson.optInt(PAGE_COUNT);
@@ -281,7 +271,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 author = name;
             }
 
-            long comicId = addComic(comic_id, title, image_cover, description, author, price, page_count, date);
+            //long comicId = addComic(comic_id, title, image_cover, description, author, price, page_count, date);
 
             // Insert the new comic information into the database
             Vector<ContentValues> cVVector = new Vector<ContentValues>(comicArray.length());
@@ -323,7 +313,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                         ComicContract.ComicEntry.COLUMN_DATE + " <= ?",
                         new String[] {Long.toString(dayTime.setJulianDay(julianStartDay-1))});
 
-                notifyWeather();
+                //notifyComic();
             }
 
             Log.d(LOG_TAG, "Sync Complete. " + cVVector.size() + " Inserted");
@@ -334,7 +324,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         }
     }
 
-    private void notifyWeather() {
+    /*private void notifyComic() {
         Context context = getContext();
         //checking the last update and notify if it' the first of the day
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -411,7 +401,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 cursor.close();
             }
         }
-    }
+    }*/
 
     /**
      * Helper method to handle insertion of a new comic in the comic database.

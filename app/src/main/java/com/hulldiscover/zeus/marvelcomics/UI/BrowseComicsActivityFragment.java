@@ -1,5 +1,6 @@
 package com.hulldiscover.zeus.marvelcomics.UI;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.hulldiscover.zeus.marvelcomics.Activity.AboutActivity;
 import com.hulldiscover.zeus.marvelcomics.Adapter.ComicGridAdapter;
@@ -21,6 +23,7 @@ import com.hulldiscover.zeus.marvelcomics.BuildConfig;
 import com.hulldiscover.zeus.marvelcomics.Data.ComicContract;
 import com.hulldiscover.zeus.marvelcomics.Model.Comic;
 import com.hulldiscover.zeus.marvelcomics.R;
+import com.hulldiscover.zeus.marvelcomics.Utils.Utility;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +37,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -53,6 +57,10 @@ public class BrowseComicsActivityFragment extends Fragment {
     private static final String MODIFIED_ASC = "modified";
     private static final String MOVIES_KEY = "movies";
 
+    private static final String SELECTED_KEY = "selected_position";
+    private static boolean firstTime = true;
+    private int mPosition = GridView.INVALID_POSITION;
+
     private String mSortBy = TITLE_ASC; // default sort order
 
     private ArrayList<Comic> mComics = null;
@@ -68,7 +76,7 @@ public class BrowseComicsActivityFragment extends Fragment {
             ComicContract.ComicEntry.COLUMN_DATE
     };
 
-    // These indices are tied to FORECAST_COLUMNS.  If FORECAST_COLUMNS changes, these
+    // These indices are tied to COMIC_COLUMNS.  If COMIC_COLUMNS changes, these
     // must change.
     public static final int COL_COMIC_ID = 0;
     public static final int COL_TITLE = 1;
@@ -97,105 +105,13 @@ public class BrowseComicsActivityFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (firstTime == true) {
+            if (!Utility.hasNetworkConnection(getActivity())) {
+                Toast.makeText(getContext(), "Network Not Available!", Toast.LENGTH_LONG).show();
+            }
+        }
         // This line is added in order for this fragment to handle menu events.
         setHasOptionsMenu(true);
-
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        //inflater.inflate(R.menu.menu_fragment_main, menu);
-        inflater.inflate(R.menu.activity_browse_comics, menu);
-
-        MenuItem action_order_by_title = menu.findItem(R.id.action_oder_by_title);
-        MenuItem action_order_by_onsaleDate = menu.findItem(R.id.action_oder_by_onsaleDate);
-        //MenuItem action_order_by_issueNumber = menu.findItem(R.id.action_oder_by_issueNumber);
-
-        MenuItem menu_order_by_title = menu.findItem(R.id.menu_sort_title);
-        MenuItem menu_order_by_onSaleDate = menu.findItem(R.id.menu_sort_saleDate);
-        MenuItem menu_order_by_issueNumber = menu.findItem(R.id.menu_sort_issueNumber);
-        MenuItem menu_order_by_modified = menu.findItem(R.id.menu_sort_modified);
-
-        if (mSortBy.contentEquals(TITLE_ASC)) {
-            if (!menu_order_by_title.isChecked()) {
-                menu_order_by_title.setChecked(true);
-            }
-        } else if (mSortBy.contentEquals(ON_SALE_DATE)) {
-            if (!menu_order_by_onSaleDate.isChecked()) {
-                menu_order_by_onSaleDate.setChecked(true);
-            }
-        } else if (mSortBy.contentEquals(ISSUE_ASC)) {
-            if (!menu_order_by_issueNumber.isChecked()) {
-                menu_order_by_issueNumber.setChecked(true);
-            }
-        } else if (mSortBy.contentEquals(MODIFIED_ASC)) {
-            if (!menu_order_by_modified.isChecked()) {
-                menu_order_by_modified.setChecked(true);
-            }
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.menu_scroll_to_top:
-                scrollToTop(true);
-                return true;
-
-            case R.id.menu_about:
-                Intent intent = new Intent(getActivity(), AboutActivity.class);
-                startActivity(intent);
-                return true;
-
-            case R.id.menu_sort_title:
-                if (item.isChecked()) {
-                    item.setChecked(false);
-                } else {
-                    item.setChecked(true);
-                }
-                mSortBy = TITLE_ASC;
-                updateComics(mSortBy);
-                return true;
-
-            case R.id.menu_sort_saleDate:
-                if (item.isChecked()) {
-                    item.setChecked(false);
-                } else {
-                    item.setChecked(true);
-                }
-                mSortBy = ON_SALE_DATE;
-                updateComics(mSortBy);
-                return true;
-
-            case R.id.menu_sort_issueNumber:
-                if (item.isChecked()) {
-                    item.setChecked(false);
-                } else {
-                    item.setChecked(true);
-                }
-                mSortBy = ISSUE_ASC;
-                updateComics(mSortBy);
-                return true;
-
-            case R.id.menu_sort_modified:
-                if (item.isChecked()) {
-                    item.setChecked(false);
-                } else {
-                    item.setChecked(true);
-                }
-                mSortBy = MODIFIED_ASC;
-                updateComics(mSortBy);
-                return true;
-
-            /*case R.id.action_about:
-                Intent intent = new Intent(getActivity(), AboutActivity.class);
-                startActivity(intent);
-                return true;*/
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     @Override
@@ -221,8 +137,16 @@ public class BrowseComicsActivityFragment extends Fragment {
             }
         });
 
-        // TODO: Add Saved Instance
+        // TODO: Fix Saved Instance
+
         // If there's instance state, mine it for useful information.
+        // The end-goal here is that the user never knows that turning their device sideways
+        // does crazy lifecycle related things.
+        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
+            // The gridview probably hasn't even been populated yet.
+            mPosition = savedInstanceState.getInt(SELECTED_KEY);
+        }
+
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(SORT_SETTING_KEY)) {
                 mSortBy = savedInstanceState.getString(SORT_SETTING_KEY);
@@ -257,10 +181,108 @@ public class BrowseComicsActivityFragment extends Fragment {
         if (!mSortBy.contentEquals(TITLE_ASC)) {
             outState.putString(SORT_SETTING_KEY, mSortBy);
         }
+
         if (mComics != null) {
             outState.putParcelableArrayList(MOVIES_KEY, mComics);
         }
+        // When tablets rotate, the currently selected list item needs to be saved.
+        // When no item is selected, mPosition will be set to GridView.INVALID_POSITION,
+        // so check for that before storing.
+        if (mPosition != GridView.INVALID_POSITION) {
+            outState.putInt(SELECTED_KEY, mPosition);
+        }
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_fragment_main, menu);
+        //inflater.inflate(R.menu.activity_browse_comics, menu);
+
+        //MenuItem action_order_by_title = menu.findItem(R.id.action_oder_by_title);
+        //MenuItem action_order_by_onsaleDate = menu.findItem(R.id.action_oder_by_onsaleDate);
+        //MenuItem action_order_by_issueNumber = menu.findItem(R.id.action_oder_by_issueNumber);
+
+        MenuItem menu_order_by_title = menu.findItem(R.id.action_oder_by_title);
+        MenuItem menu_order_by_onSaleDate = menu.findItem(R.id.action_oder_by_onsaleDate);
+        MenuItem menu_order_by_issueNumber = menu.findItem(R.id.action_oder_by_issueNumber);
+        MenuItem menu_order_by_modified = menu.findItem(R.id.action_oder_by_modified);
+
+        if (mSortBy.contentEquals(TITLE_ASC)) {
+            if (!menu_order_by_title.isChecked()) {
+                menu_order_by_title.setChecked(true);
+            }
+        } else if (mSortBy.contentEquals(ON_SALE_DATE)) {
+            if (!menu_order_by_onSaleDate.isChecked()) {
+                menu_order_by_onSaleDate.setChecked(true);
+            }
+        } else if (mSortBy.contentEquals(ISSUE_ASC)) {
+            if (!menu_order_by_issueNumber.isChecked()) {
+                menu_order_by_issueNumber.setChecked(true);
+            }
+        } else if (mSortBy.contentEquals(MODIFIED_ASC)) {
+            if (!menu_order_by_modified.isChecked()) {
+                menu_order_by_modified.setChecked(true);
+            }
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.menu_scroll_to_top:
+                scrollToTop(true);
+                return true;
+
+            case R.id.menu_about:
+                Intent intent = new Intent(getActivity(), AboutActivity.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.action_oder_by_title:
+                if (item.isChecked()) {
+                    item.setChecked(false);
+                } else {
+                    item.setChecked(true);
+                }
+                mSortBy = TITLE_ASC;
+                updateComics(mSortBy);
+                return true;
+
+            case R.id.action_oder_by_onsaleDate:
+                if (item.isChecked()) {
+                    item.setChecked(false);
+                } else {
+                    item.setChecked(true);
+                }
+                mSortBy = ON_SALE_DATE;
+                updateComics(mSortBy);
+                return true;
+
+            case R.id.action_oder_by_issueNumber:
+                if (item.isChecked()) {
+                    item.setChecked(false);
+                } else {
+                    item.setChecked(true);
+                }
+                mSortBy = ISSUE_ASC;
+                updateComics(mSortBy);
+                return true;
+
+            case R.id.action_oder_by_modified:
+                if (item.isChecked()) {
+                    item.setChecked(false);
+                } else {
+                    item.setChecked(true);
+                }
+                mSortBy = MODIFIED_ASC;
+                updateComics(mSortBy);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public class FetchComicsTask extends AsyncTask<String, Void, List<Comic>> {
@@ -269,8 +291,6 @@ public class BrowseComicsActivityFragment extends Fragment {
 
         final String RESULT = "results";
         final String DATA = "data";
-        final String POSTER_BASE_URL = "http://image.tmdb.org/t/p/w185";
-        final String BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w500";
 
         private List<Comic> getComicsDataFromJson(String jsonStr) throws JSONException {
             JSONObject comicJson = new JSONObject(jsonStr);
@@ -283,11 +303,43 @@ public class BrowseComicsActivityFragment extends Fragment {
 
             List<Comic> results = new ArrayList<>();
 
+            // Insert the new comic information into the database
+            Vector<ContentValues> cVVector = new Vector<ContentValues>(comicArray.length());
+
+            for(int i = 0; i < comicArray.length(); i++) {
+
+
+            }
+
             for(int i = 0; i < comicArray.length(); i++) {
                 JSONObject comic = comicArray.getJSONObject(i);
                 Comic comicModel = new Comic(comic);
                 results.add(comicModel);
+
+                ContentValues comicValues = new ContentValues();
+
+                // Add the data, along with the corresponding name of the data type,
+                // so the content provider knows what kind of value is being inserted.
+
+                comicValues.put(ComicContract.ComicEntry.COLUMN_COMIC_ID, comicModel.getId());
+                comicValues.put(ComicContract.ComicEntry.COLUMN_TITLE, comicModel.getTitle());
+                comicValues.put(ComicContract.ComicEntry.COLUMN_IMAGE, comicModel.getImage_cover());
+                comicValues.put(ComicContract.ComicEntry.COLUMN_DESCRIPTION, comicModel.getDescription());
+                comicValues.put(ComicContract.ComicEntry.COLUMN_AUTHOR, comicModel.getCreator());
+                comicValues.put(ComicContract.ComicEntry.COLUMN_PRICE, comicModel.getPrice());
+                comicValues.put(ComicContract.ComicEntry.COLUMN_PAGE_COUNT, comicModel.getPage_count());
+                comicValues.put(ComicContract.ComicEntry.COLUMN_DATE, comicModel.getDate());
+                cVVector.add(comicValues);
             }
+
+            int inserted = 0;
+            // add to database
+            if (cVVector.size() > 0) {
+                ContentValues[] cvArray = new ContentValues[cVVector.size()];
+                cVVector.toArray(cvArray);
+                inserted = getActivity().getApplicationContext().getContentResolver().bulkInsert(ComicContract.ComicEntry.CONTENT_URI, cvArray);
+            }
+            Log.d(LOG_TAG, "FetchPopularMovie Task Complete. " + inserted + " Inserted");
 
             return results;
         }

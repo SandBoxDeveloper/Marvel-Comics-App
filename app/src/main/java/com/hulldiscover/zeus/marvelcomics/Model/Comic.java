@@ -187,6 +187,8 @@ public class Comic implements Parcelable {
         return image_cover_extension;
     }
 
+    public String getCreator() { return author; }
+
     public Map<String, String> getAuthor() {
         return creators;
     }

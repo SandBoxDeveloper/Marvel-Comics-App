@@ -4,9 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.hulldiscover.zeus.marvelcomics.DetailActivityFragment;
+import com.hulldiscover.zeus.marvelcomics.UI.DetailActivityFragment;
 import com.hulldiscover.zeus.marvelcomics.Model.Comic;
 import com.hulldiscover.zeus.marvelcomics.R;
+import com.hulldiscover.zeus.marvelcomics.Sync.SyncAdapter;
 import com.hulldiscover.zeus.marvelcomics.UI.BrowseComicsActivityFragment;
 
 public class BrowseComicsActivity extends AppCompatActivity implements BrowseComicsActivityFragment.Callback {
@@ -34,6 +35,9 @@ public class BrowseComicsActivity extends AppCompatActivity implements BrowseCom
         } else {
             mTwoPane = false;
         }
+
+        // init Sync Adapter
+        SyncAdapter.initializeSyncAdapter(this);
     }
 
     @Override

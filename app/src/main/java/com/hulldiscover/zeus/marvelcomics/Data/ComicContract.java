@@ -22,7 +22,7 @@ public class ComicContract {
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
     // Possible paths (appended to base content URI for possible URI's)
-    // For instance, content://com.example.android.sunshine.app/comic/ is a valid path for
+    // For instance, com.hulldiscover.zeus.marvelcomics/comic is a valid path for
     // looking at comic data. content://com.hulldiscover.zeus.marvelcomics/givemeroot/ will fail,
     // as the ContentProvider hasn't been given any information on what to do with "givemeroot".
     public static final String PATH_COMIC = "comic";
@@ -58,6 +58,12 @@ public class ComicContract {
         public static Uri buildComicUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
+
+        public static Uri buildComic(String comic) {
+            return CONTENT_URI.buildUpon().appendPath(comic).build();
+        }
+
+
 
     }
 }

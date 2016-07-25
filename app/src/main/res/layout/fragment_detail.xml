@@ -4,7 +4,7 @@
     android:visibility="invisible"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hulldiscover.zeus.marvelcomics.DetailActivityFragment">
+    tools:context=".UI.DetailActivityFragment">
 
     <LinearLayout
         android:orientation="vertical"
