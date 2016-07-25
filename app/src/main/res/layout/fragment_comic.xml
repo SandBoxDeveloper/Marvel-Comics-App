@@ -1,0 +1,169 @@
+<!--
+  Copyright 2015.  Emin Yahyayev
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+    android:id="@+id/movie_scroll_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginEnd="@dimen/movie_details_margin"
+    android:layout_marginRight="@dimen/movie_details_margin"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false">
+
+        <FrameLayout
+            android:id="@+id/movie_cover_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/movie_details_margin"
+            android:clickable="true"
+            >
+
+            <com.hulldiscover.zeus.marvelcomics.UI.widget.AspectLockedImageView
+                android:id="@+id/img_comic_poster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                app:imageAspectRatio="@dimen/movie_details_cover_aspect_ratio"
+                tools:src="@drawable/placeholder_comic_item_image" />
+
+            <ImageView
+                android:id="@+id/comic_poster"
+                style="@style/MovieDetailPlayImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/release_date"
+                android:src="@drawable/ic_action_sort"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+        <View
+            android:id="@+id/anchor"
+            style="@style/MovieDetailAnchor"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/movie_details_anchor_height" />
+
+        <!-- Details -->
+        <LinearLayout
+            android:layout_width="@dimen/movie_details_responsive_width"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/anchor"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/movie_details_content_margin_bottom"
+            android:background="@android:color/white"
+            android:clickable="true"
+            android:clipChildren="false"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false">
+
+                <com.hulldiscover.zeus.marvelcomics.UI.widget.AspectLockedImageView
+                    android:id="@+id/comic_thumbnail"
+                    android:layout_width="@dimen/movie_details_poster_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/keyline_1"
+                    android:layout_marginLeft="@dimen/movie_details_poster_left_margin"
+                    android:layout_marginStart="@dimen/movie_details_poster_left_margin"
+                    android:layout_marginTop="@dimen/movie_details_poster_top_margin"
+                    android:contentDescription="@null"
+                    app:imageAspectRatio="@dimen/comic_item_image_aspect_ratio"
+                    tools:src="@drawable/placeholder_comic_item_image" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/comic_thumbnail"
+                    android:layout_toRightOf="@id/comic_thumbnail"
+                    android:orientation="vertical"
+                    android:padding="@dimen/keyline_1">
+
+                    <TextView
+                        android:id="@+id/comic_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/body_text_1"
+                        android:textSize="@dimen/text_size_large"
+                        android:textStyle="bold"
+                        tools:text="Jurassic Park" />
+
+
+                    <TextView
+                        android:id="@+id/comic_release_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/body_text_2"
+                        android:textSize="@dimen/text_size_medium"
+                        tools:text="February 2013" />
+
+                    <TextView
+                        android:id="@+id/comic_no_pages"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/body_text_2"
+                        android:textSize="@dimen/text_size_medium"
+                        tools:text="Rating: 8/10" />
+
+                    <TextView
+                        android:id="@+id/comic_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/body_text_2"
+                        android:textSize="@dimen/text_size_medium"
+                        tools:text="Price: £3.99" />
+
+                    <TextView
+                        android:id="@+id/comic_creators"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/body_text_2"
+                        android:textSize="@dimen/text_size_medium"
+                        tools:text="Authors: " />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/list_dropdown_divider_color" />
+
+            <TextView
+                android:id="@+id/comic_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/keyline_1"
+                android:textSize="@dimen/text_size_medium"
+                tools:text="@string/description" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</com.github.ksoichiro.android.observablescrollview.ObservableScrollView>

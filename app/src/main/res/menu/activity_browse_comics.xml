@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_sort"
+        android:icon="@drawable/ic_action_sort"
+        android:visible="false"
+        app:showAsAction="always">
+
+        <menu>
+            <group
+                android:id="@+id/menu_sort_group"
+                android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/menu_sort_title"
+                    android:title="@string/menu_sort_title" />
+
+                <item
+                    android:id="@+id/menu_sort_issueNumber"
+                    android:title="@string/menu_sort_issueNumber" />
+
+                <item
+                    android:id="@+id/menu_sort_saleDate"
+                    android:title="@string/menu_sort_saleDate" />
+
+                <item
+                    android:id="@+id/menu_sort_modified"
+                    android:title="@string/menu_sort_modified"/>
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/menu_scroll_to_top"
+        android:title="@string/menu_scroll_to_top"/>
+
+    <item
+        android:id="@+id/menu_refresh"
+        android:title="@string/menu_refresh"/>
+
+    <item
+        android:id="@+id/menu_about"
+        android:title="@string/menu_about" />
+
+</menu>

@@ -1,0 +1,38 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_sort_by"
+        android:title="@string/action_order_by"
+        app:showAsAction="ifRoom">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/action_oder_by_title"
+                    android:title="@string/action_order_by_title" />
+                <item
+                    android:id="@+id/action_oder_by_onsaleDate"
+                    android:title="@string/action_order_by_onsaleDate" />
+                <item
+                    android:id="@+id/action_oder_by_issueNumber"
+                    android:title="@string/action_sort_by_issueNumber" />
+                <item
+                    android:id="@+id/action_oder_by_modified"
+                    android:title="@string/menu_sort_modified" />
+
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/extras"
+        android:title="@string/extras"
+        app:showAsAction="ifRoom">
+
+        <item
+            android:id="@+id/menu_scroll_to_top"
+            android:title="@string/menu_scroll_to_top" />
+        <item
+            android:id="@+id/menu_about"
+            android:title="@string/menu_about" />
+    </item>
+</menu>
